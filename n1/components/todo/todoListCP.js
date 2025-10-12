@@ -16,6 +16,7 @@ export default function TodoListCP({data, queryObj}){
                 </li>
                 )}
             </ul>
+
         </div>
     )
 }
