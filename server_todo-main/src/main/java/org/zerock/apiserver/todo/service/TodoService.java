@@ -7,7 +7,7 @@ import org.zerock.apiserver.todo.dto.TodoDTO;
 import org.zerock.apiserver.todo.entity.TodoEntity;
 
 public interface TodoService {
-  
+
   TodoDTO register(TodoDTO todoDTO);
 
   Optional<TodoDTO> getOne(Integer tno);
@@ -35,7 +35,7 @@ public interface TodoService {
     .tno(todoDTO.getTno())
     .title(todoDTO.getTitle())
     .writer(todoDTO.getWriter())
-    .completed(todoDTO.isCompleted())
+    .completed(todoDTO.getCompleted() != null ? todoDTO.getCompleted() : false)
     .createdDate(todoDTO.getCreatedDate())
     .build();
     

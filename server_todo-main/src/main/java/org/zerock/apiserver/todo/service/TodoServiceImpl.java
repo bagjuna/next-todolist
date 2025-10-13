@@ -3,6 +3,8 @@ package org.zerock.apiserver.todo.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,13 +24,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class TodoServiceImpl implements TodoService {
- 
+
+  private static final Logger log = LogManager.getLogger(TodoServiceImpl.class);
   private final TodoRepository repository;
 
 
   @Override
   public TodoDTO register(TodoDTO todoDTO) {
-    
+    log.info(todoDTO.toString());
     TodoEntity entity = dtoTOEntity(todoDTO);
 
     repository.save(entity);
@@ -55,7 +58,7 @@ public class TodoServiceImpl implements TodoService {
     TodoEntity entity = repository.findById(todoDTO.getTno())
             .orElseThrow(() -> new TodoNotFoundException("Not Found"));
 
-    entity.changeCompleted(todoDTO.isCompleted());
+    entity.changeCompleted(todoDTO.getCompleted() != null ? todoDTO.getCompleted() : false);
     entity.changeTitle(todoDTO.getTitle());
 
     //dirty checking
