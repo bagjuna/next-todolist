@@ -1,5 +1,5 @@
 import Link from "next/link";
-
+import TodoPagingCP from "./todoPagingCP";
 export default function TodoListCP({data, queryObj}){
 
     const {list, total} = data;
@@ -16,6 +16,8 @@ export default function TodoListCP({data, queryObj}){
                 </li>
                 )}
             </ul>
+
+            <TodoPagingCP totalCount={total} size={10} page={queryObj.get('page')}></TodoPagingCP>
 
         </div>
     )
