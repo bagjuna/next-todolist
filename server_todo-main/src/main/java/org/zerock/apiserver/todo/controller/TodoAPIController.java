@@ -56,11 +56,11 @@ public class TodoAPIController {
   @GetMapping("list")
   public ListDTO<TodoDTO> getList(@RequestParam("page") int page) {
 
-     try {
-         Thread.sleep(2000);
-     } catch (InterruptedException e) {
-         throw new RuntimeException(e);
-     }
+//      try {
+//          Thread.sleep(2000);
+//      } catch (InterruptedException e) {
+//          throw new RuntimeException(e);
+//      }
 
 
       return service.list(page);
