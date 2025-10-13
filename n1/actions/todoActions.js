@@ -29,4 +29,17 @@ export async function putTodo(prevState, formData){
     return {result: serverResult.tno };
 }
 
+export async function deleteTodo(prevState, formData){
+    console.log('Delete Todo ...')
 
+    const tno = formData.get('tno');
+
+    const res = await fetch(`http://localhost:8080/api/todos/${tno}`,
+        {method: 'DELETE'});
+
+    const serverResult = await res.json();
+
+    console.log(serverResult);
+
+    return {result: serverResult.result };
+}

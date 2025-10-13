@@ -1,20 +1,33 @@
 'use client'
-
-import {useActionState} from "react";
 import {putTodo} from "@/actions/todoActions";
+
+import {useActionState, useState} from "react";
 import {useRouter} from "next/navigation";
+import TodoDeleteModalCP from "@/components/todo/todoDeleteModalCP";
 
 export default function TodoEditCP({todo, queryObj}) {
-    const query = new URLSearchParams(queryObj)
 
     const [putState, putAction, putPending] = useActionState(putTodo, {result: ''})
 
     const router = useRouter();
 
+    const query = new URLSearchParams(queryObj)
+
+    const [deleteShow, setDeleteShow] = useState(false)
+
+    const deleteClose = () => {
+        router.replace(`/todo/list`)
+    }
+
     return (
         <div className="max-w-xl mx-auto p-8 mt-10 bg-white rounded-xl shadow-lg space-y-6 border border-gray-200">
             <h2 className="text-2xl font-bold text-gray-800 text-center">할 일 수정하기</h2>
 
+            {deleteShow &&
+                <TodoDeleteModalCP
+                    tno={todo.tno}
+                    onClose={deleteClose}
+                    changeShow={setDeleteShow}></TodoDeleteModalCP>}
 
             {putState.result && (
                 <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4" role="alert">
@@ -90,6 +103,7 @@ export default function TodoEditCP({todo, queryObj}) {
                         onClick={e => {
                             e.preventDefault();
                             e.stopPropagation();
+                            setDeleteShow(() => true);
                         }}
                         className="py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
