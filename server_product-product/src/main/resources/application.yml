@@ -35,7 +35,7 @@ spring:
       file-size-threshold: 1MB
   web:
     resources:
-      static-locations: /Users/bagjun-a/temp/images/
+      static-locations: file:/Users/bagjun-a/temp/images
 #로그 설정   
 logging:
   level:
