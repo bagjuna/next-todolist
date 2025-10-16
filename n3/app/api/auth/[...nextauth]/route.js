@@ -114,6 +114,40 @@ export const authOptions = {
 
     }
 }
+
+async function refreshAccessToken(token) {
+    console.log("refreshAccessToken..............................................")
+    try {
+        const res = await fetch('http://localhost:8080/api/accounts/refresh', {
+            method: 'POST',
+            body: JSON.stringify({ refreshToken: token.refreshToken }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Cache-Control': 'no-store',
+            },
+        });
+        const refreshedUser = await res.json();
+
+        if (!res.ok) {
+            throw new Error("Failed to refresh token");
+        }
+
+        token.id = refreshedUser.email;
+        token.role = refreshedUser.role;
+        token.email = refreshedUser.email;
+        token.name = refreshedUser.nickname;
+        token.accessToken = refreshedUser.accessToken;
+        token.refreshToken = refreshedUser.refreshToken;
+
+        token.accessTokenExpires = Date.now() + (60 * 60 *  1000); // 1시간으로 재설정
+        return token;
+    } catch (error) {
+        console.error("Error refreshing token:", error);
+        return { ...token, error: "RefreshAccessTokenError" };
+    }
+
+}
+
 const handler = NextAuth(authOptions);
 export {handler as GET, handler as POST};
 

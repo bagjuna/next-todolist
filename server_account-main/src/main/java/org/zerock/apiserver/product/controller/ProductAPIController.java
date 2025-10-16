@@ -24,14 +24,15 @@ public class ProductAPIController {
 
     private final ProductService productService;
 
-//    curl -X POST \
-//      -F "files=@/Users/zerock/capture/img1.jpeg" \
-//      -F "files=@/Users/zerock/capture/img2.jpeg" \
-//      -F "pname=Product1" \
-//      -F "sale=true" \
-//      -F "price=12000" \
-//      -F "writer=user1" \
-//      http://localhost:8080/api/products
+    /*
+     curl -X POST \
+     -F "files=@/Users/bagjun-a/temp/sample/img1.jpeg" \
+     -F "pname=Product1" \
+     -F "sale=true" \
+     -F "price=12000" \
+     -F "writer=USER1" \
+     http://localhost:8080/api/products
+     */
     @PostMapping("")
     public ProductDTO register(ProductDTO productDTO, @RequestParam("files") MultipartFile[] files) {
 

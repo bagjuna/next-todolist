@@ -1,24 +1,17 @@
 'use client'
 
 import {postProduct} from "@/actions/productActions"
-import {useRouter} from "next/navigation"
 import {useActionState, useEffect} from "react"
-import {useSession} from "next-auth/react";
+
+import {useAuthCheck} from "@/hooks/useAuthCheck";
 
 export default function ProductAddCP() {
 
     const [state, action, isPending] = useActionState(postProduct, {message: '', result: ''})
 
-    const {data: session, status: sessionStatus} = useSession()
+    const {session} = useAuthCheck();
 
-    const router = useRouter()
 
-    useEffect(() => {
-        if(sessionStatus === 'unauthenticated'){
-            alert('로그인이 필요합니다.')
-        }
-    }, [ sessionStatus])
-    console.log('productAddCP', sessionStatus)
 
     return (
         <div className="flex flex-col items-center justify-center p-6 bg-gray-100 min-h-screen">

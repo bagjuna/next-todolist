@@ -1,12 +1,22 @@
 import {useSession} from "next-auth/react";
 import {useRouter} from "next/navigation";
+import {useEffect} from "react";
 
-import {useAuthCheck} from "@/hooks/useAuthCheck";
 
-export default function useAuthCheck() {
-    const {data: session,status} = useSession();
+export const useAuthCheck = (move) => {
+    const {data: session, status} = useSession();
     const router = useRouter();
 
-    const session = useAuthCheck();
+    useEffect(() => {
+        if (status === 'unauthenticated') {
+            if (move) {
+                router.replace('/account/signin');
+            }
+
+        }
+
+    }, [status, router]);
+
+    return {session, router};
 
 }
