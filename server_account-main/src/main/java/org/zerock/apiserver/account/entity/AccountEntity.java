@@ -36,7 +36,6 @@ public class AccountEntity {
 
     @CreatedDate
     private LocalDateTime createTime;
-    @LastModifiedDate
 
     @CreatedDate
     private LocalDateTime joinDate;
