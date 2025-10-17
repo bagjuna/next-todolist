@@ -3,6 +3,7 @@
 import {useAuthCheck} from "@/hooks/useAuthCheck";
 import {useState} from "react";
 import AddCartModal from "@/components/product/view/addCardModal";
+import {mutate} from "swr";
 
 export default function AddCartButton({pno}) {
 
@@ -27,6 +28,7 @@ export default function AddCartButton({pno}) {
 
         setShow(()=>true);
 
+        mutate('/api/cart/list');
     }
 
 

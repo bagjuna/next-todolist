@@ -41,7 +41,6 @@ export async function GET(request, {params}) {
 
     const { action } = paramObj;
 
-    console.log('action:', action);
 
     if (action === 'list') {
 
